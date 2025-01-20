@@ -10,7 +10,7 @@ rota.get('/solicitar', (req, res) => {
         }
 
         cnx.query(
-            'SELECT * from SOLICITANTES',
+            'SELECT * from SOLICITANTES WHERE CADASTRADO != "S"',
 
             (err, result) => {
                 cnx.release();
@@ -24,9 +24,35 @@ rota.get('/solicitar', (req, res) => {
                         return {
                             codigo: post.CODIGO,
                             nome: post.NOME,
-                            grupo: post.GRUPO
+                            grupo: post.GRUPO,
+                            cadastro: post.CADASTRADO
                         }
                     })
+                }
+
+                res.status(200).send(response);
+            }
+        )
+    })
+})
+
+rota.put('/att', (req, res) => {
+    BD.getConnection((error, cnx) => {
+        if(error){
+            res.status(500).send({erro: error})
+        }
+
+        cnx.query(
+            'UPDATE SOLICITANTES SET CADASTRADO = "S" WHERE CODIGO = ?',
+            [req.body.id],
+
+            (err, result) => {
+                cnx.release();
+
+                if(err){res.status(500).send({erro: err})};
+
+                const response = {
+                    mensagem: 'Usuario Atualizado'
                 }
 
                 res.status(200).send(response);
