@@ -10,7 +10,7 @@ rota.get('/solicitar', (req, res) => {
         }
 
         cnx.query(
-            'SELECT * from SOLICITANTES WHERE CADASTRADO != "S"',
+            'SELECT * from SOLICITANTES WHERE CADASTRADO != "S" OR CADASTRADO IS NULL',
 
             (err, result) => {
                 cnx.release();
