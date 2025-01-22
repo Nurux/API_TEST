@@ -25,7 +25,7 @@ rota.get('', (req, res) => {
                     }
                 }
 
-                res.status.send(response);
+                res.status(200).send(response);
             }
         )
     })
@@ -49,7 +49,7 @@ rota.post('/cadastrar', (req, res) => {
                 let response = {
                     code: 1
                 }
-                res.status.send(response);
+                res.status(201).send(response);
             }
         )
     })
