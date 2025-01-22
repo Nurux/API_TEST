@@ -13,19 +13,7 @@ rota.get('', (req, res) => {
             (err, result) =>{
                 if(err){res.status(500).send({error: err})}
 
-                let response = {};
-
-                if(result.ok > 0 ){
-                    response = {
-                        code: 1
-                    }
-                }else{
-                    response = {
-                        code: 0
-                    }
-                }
-
-                res.status(200).send(response);
+                res.status(200).send(result.ok);
             }
         )
     })
