@@ -13,14 +13,16 @@ rota.get('', (req, res) => {
             (err, result) =>{
                 if(err){res.status(500).send({error: err})}
 
-                let p = 0;
+                let response = {};
 
                 if(result > 0 ){
-                    p = 1;
-                }
-
-                let response = {
-                    code: 1
+                    response = {
+                        code: 1
+                    }
+                }else{
+                    response = {
+                        code: 0
+                    }
                 }
 
                 res.status.send(response);
@@ -40,8 +42,6 @@ rota.post('/cadastrar', (req, res) => {
             (err, result) =>{
                 if(err){res.status(500).send({error: err})}
 
-                let p = 0;
-
                 if(result > 0 ){
                     p = 1;
                 }
@@ -49,7 +49,6 @@ rota.post('/cadastrar', (req, res) => {
                 let response = {
                     code: 1
                 }
-
                 res.status.send(response);
             }
         )
