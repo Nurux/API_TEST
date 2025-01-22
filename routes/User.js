@@ -35,7 +35,7 @@ rota.post('/cadastrar', (req, res) => {
 
         cnx.query(
             'Insert into USERS(NOME, SENHA) values(?,?)',
-            [req.body.nome, req.body.grupo],
+            [req.body.nome, req.body.senha],
 
             (err, result) =>{
                 if(err){res.status(500).send({error: err})}
