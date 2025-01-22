@@ -7,7 +7,7 @@ rota.get('', (req, res) => {
         if(erro){res.status(500).send({error: erro})}
 
         cnx.query(
-            'Select count(*) from USERS where user = ? and password = ?',
+            'Select count(*) from USERS where NOME = ? and SENHA = ?',
             [req.body.user, req.body.password],
 
             (err, result) =>{
