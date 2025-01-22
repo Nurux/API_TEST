@@ -7,25 +7,25 @@ rota.get('', (req, res) => {
         if(erro){res.status(500).send({error: erro})}
 
         cnx.query(
-            'Select count(*) from USERS where NOME = ? and SENHA = ?',
+            'Select count(*) as ok from USERS where NOME = ? and SENHA = ?',
             [req.body.user, req.body.password],
 
             (err, result) =>{
                 if(err){res.status(500).send({error: err})}
 
-                // let response = {};
+                let response = {};
 
-                // if(result > 0 ){
-                //     response = {
-                //         code: 1
-                //     }
-                // }else{
-                //     response = {
-                //         code: 0
-                //     }
-                // }
+                if(result.ok > 0 ){
+                    response = {
+                        code: 1
+                    }
+                }else{
+                    response = {
+                        code: 0
+                    }
+                }
 
-                res.status(200).send(result);
+                res.status(200).send(response);
             }
         )
     })
