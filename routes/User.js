@@ -49,7 +49,7 @@ rota.post('/cadastrar', (req, res) => {
                 let response = {
                     code: 1
                 }
-                res.status(201).send(response);
+                res.send(response);
             }
         )
     })
