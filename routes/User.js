@@ -1,0 +1,60 @@
+const express = require('express');
+const rota = express.Router();
+const BD = require('../database/bd').conexao;
+
+rota.get('', (req, res) => {
+    BD.getConnection((erro, cnx) => {
+        if(erro){res.status(500).send({error: erro})}
+
+        cnx.query(
+            'Select count(*) from usuarios where user = ? and password = ?',
+            [req.body.user, req.body.password],
+
+            (err, result) =>{
+                if(err){res.status(500).send({error: err})}
+
+                let p = 0;
+
+                if(result > 0 ){
+                    p = 1;
+                }
+
+                let response = {
+                    code: 1
+                }
+
+                res.status.send(response);
+            }
+        )
+    })
+})
+
+rota.post('/cadastrar', (req, res) => {
+    BD.getConnection((erro, cnx) => {
+        if(erro){res.status(500).send({error: erro})}
+
+        cnx.query(
+            'Insert into USER(NOME, SENHA) values(?,?)',
+            [req.body.nome, req.body.grupo],
+
+            (err, result) =>{
+                if(err){res.status(500).send({error: err})}
+
+                let p = 0;
+
+                if(result > 0 ){
+                    p = 1;
+                }
+
+                let response = {
+                    code: 1
+                }
+
+                res.status.send(response);
+            }
+        )
+    })
+})
+
+
+module.exports = rota;
