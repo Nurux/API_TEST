@@ -7,7 +7,7 @@ rota.get('', (req, res) => {
         if(erro){res.status(500).send({error: erro})}
 
         cnx.query(
-            'Select count(*) from usuarios where user = ? and password = ?',
+            'Select count(*) from USERS where user = ? and password = ?',
             [req.body.user, req.body.password],
 
             (err, result) =>{
@@ -34,7 +34,7 @@ rota.post('/cadastrar', (req, res) => {
         if(erro){res.status(500).send({error: erro})}
 
         cnx.query(
-            'Insert into USER(NOME, SENHA) values(?,?)',
+            'Insert into USERS(NOME, SENHA) values(?,?)',
             [req.body.nome, req.body.grupo],
 
             (err, result) =>{
