@@ -19,6 +19,23 @@ rota.get('', (req, res) => {
     })
 })
 
+rota.post('/logar', (req, res) => {
+    BD.getConnection((erro, cnx) => {
+        if(erro){res.status(500).send({error: erro})}
+
+        cnx.query(
+            'Select count(*) as ok from USERS where NOME = ? and SENHA = ?',
+            [req.body.user, req.body.password],
+
+            (err, result) =>{
+                if(err){res.status(500).send({error: err})}
+
+                res.status(200).send(result);
+            }
+        )
+    })
+})
+
 rota.post('/cadastrar', (req, res) => {
     BD.getConnection((erro, cnx) => {
         if(erro){res.status(500).send({error: erro})}
