@@ -102,6 +102,39 @@ rota.get('/solicitar/reprovados', (req, res) => {
     })
 })
 
+rota.get('/solicitar/aprovados', (req, res) => {
+    BD.getConnection((error, cnx) => {
+        if(error){
+            res.status(500).send({erro: error})
+        }
+
+        cnx.query(
+            'SELECT * from SOLICITANTES WHERE CADASTRADO = "S"',
+
+            (err, result) => {
+                cnx.release();
+
+                if(err){res.status(500).send({erro: err})};
+
+                const response = {
+                    mensagem: 'Lista de Solicitações',
+                    quantidade: result.length,
+                    list: result.map(post => {
+                        return {
+                            codigo: post.CODIGO,
+                            nome: post.NOME,
+                            grupo: post.GRUPO,
+                            cadastro: post.CADASTRADO
+                        }
+                    })
+                }
+
+                res.status(200).send(response);
+            }
+        )
+    })
+})
+
 
 rota.put('/att', (req, res) => {
     BD.getConnection((error, cnx) => {
