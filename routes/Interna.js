@@ -161,6 +161,30 @@ rota.put('/att', (req, res) => {
     })
 })
 
+rota.put('/bloq', (req,res) => {
+    BD.getConnection((error, cnx) => {
+        if(error){res.status(500).send({erro: error})}
+
+        cnx.query(
+            'UPDATE SOLICITANTES SET CADASTRADO = "N" WHERE CODIGO = ?',
+            [req.body.id],
+
+            (err, result) => {
+                cnx.release();
+
+                if(err){res.status(500).send({erro: err})}
+
+                const response = {
+                    msg: 'Usuario Reprovado'
+                }
+
+                res.status(200).send(response);
+
+            }
+        )
+    })
+})
+
 rota.post('/gravar',  (req, res) => {
     BD.getConnection((erro, cnx) => {
         if(erro){res.status(500).send({erro: erro})}
